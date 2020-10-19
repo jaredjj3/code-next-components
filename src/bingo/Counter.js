@@ -5,6 +5,7 @@ export const Counter = props => {
     <div className="col card text-center">
       <div className="card-body">
         <h5 className="card-title">{props.count}</h5>
+        <p className="card-text">{props.count}</p>
         <div className="btn-group" role="group">
           <button
             type="button"

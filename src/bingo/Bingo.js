@@ -21,10 +21,10 @@ export const Bingo = () => {
   return (
     <div className="container">
       {grid.map((rows, r) => (
-        <div key={r} className="row">
+        <div key={`row-${r}`} className="row">
           {rows.map((count, c) => (
             <Counter
-              key={`count-${r}-${c}`}
+              key={`counter-${r}-${c}`}
               count={count}
               increment={increment(r, c)}
               decrement={decrement(r, c)}
