@@ -3,27 +3,42 @@ import { Counter } from "./Counter";
 
 const WIN_THRESHOLD = 3;
 
-export const Bingo = () => {
-  const [grid, setGrid] = useState([
-    [
-      { description: 'green', count: 0 },
-      { description: 'round', count: 0 },
-      { description: 'red', count: 0 }
-    ],
-    [
-      { description: 'noisemaker', count: 0 },
-      { description: 'childhood item', count: 1 },
-      { description: 'souvenir', count: 0 }
-    ],
-    [
-      { description: 'collectible', count: 0 },
-      { description: 'broken', count: 0 },
-      { description: 'snack wrapper', count: 0 }
-    ],
-  ]);
-  const [numWins, setNumWins] = useState(0);
+const INITIAL_GRID = [
+  [
+    { description: "green", count: 0 },
+    { description: "round", count: 0 },
+    { description: "red", count: 0 }
+  ],
+  [
+    { description: "noisemaker", count: 0 },
+    { description: "childhood item", count: 1 },
+    { description: "souvenir", count: 0 }
+  ],
+  [
+    { description: "collectible", count: 0 },
+    { description: "broken", count: 0 },
+    { description: "snack wrapper", count: 0 }
+  ]
+];
 
-  const copyGrid = () => grid.map(row => row.map(el => ({ ...el })));
+const getNumWins = grid => {
+  const rows = grid;
+  const cols = grid.map((_, ndx) => rows.map(row => row[ndx]));
+  const diags = [
+    [grid[0][0], grid[1][1], grid[2][2]],
+    [grid[2][0], grid[1][1], grid[0][2]]
+  ];
+  const isWon = arr => arr.every(el => el.count >= WIN_THRESHOLD);
+  return [...rows, ...cols, ...diags].reduce((count, arr) => {
+    return isWon(arr) ? count + 1 : count;
+  }, 0);
+};
+
+const copyGrid = () => grid.map(row => row.map(el => ({ ...el })));
+
+export const Bingo = () => {
+  const [grid, setGrid] = useState(INITIAL_GRID);
+  const numWins = getNumWins(grid);
 
   const increment = (r, c) => () => {
     const nextGrid = copyGrid();
@@ -36,23 +51,6 @@ export const Bingo = () => {
     nextGrid[r][c].count--;
     setGrid(nextGrid);
   };
-
-  useEffect(() => {
-    const rows = grid;
-    const cols = grid.map((_, ndx) => rows.map(row => row[ndx]));
-    const diags = [
-      [grid[0][0], grid[1][1], grid[2][2]],
-      [grid[2][0], grid[1][1], grid[0][2]]
-    ];
-
-    const isWon = arr => arr.every(el => el >= WIN_THRESHOLD);
-
-    const numWins = [...rows, ...cols, ...diags].reduce((count, arr) => {
-      return isWon(arr) ? count + 1 : count;
-    }, 0);
-
-    setNumWins(numWins);
-  }, [grid]);
 
   return (
     <div className="container">

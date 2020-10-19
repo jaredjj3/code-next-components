@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Bingo } from "./bingo/Bingo";
-import { Cart } from "./cart/Cart";
+import { App } from "./App";
 
-ReactDOM.render(<Bingo />, document.getElementById("bingo"));
-ReactDOM.render(<Cart />, document.getElementById("cart"));
+ReactDOM.render(<App />, document.getElementById("app"));
