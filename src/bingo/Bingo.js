@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Counter } from "./Counter";
 
 const WIN_THRESHOLD = 3;
@@ -34,20 +34,20 @@ const getNumWins = grid => {
   }, 0);
 };
 
-const copyGrid = () => grid.map(row => row.map(el => ({ ...el })));
+const copyGrid = (grid) => grid.map(row => row.map(el => ({ ...el })));
 
 export const Bingo = () => {
   const [grid, setGrid] = useState(INITIAL_GRID);
   const numWins = getNumWins(grid);
 
   const increment = (r, c) => () => {
-    const nextGrid = copyGrid();
+    const nextGrid = copyGrid(grid);
     nextGrid[r][c].count++;
     setGrid(nextGrid);
   };
 
   const decrement = (r, c) => () => {
-    const nextGrid = copyGrid();
+    const nextGrid = copyGrid(grid);
     nextGrid[r][c].count--;
     setGrid(nextGrid);
   };
