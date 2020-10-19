@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Counter } from "./Counter";
 
 export const Bingo = () => {
   const [grid, setGrid] = useState([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
@@ -8,13 +9,13 @@ export const Bingo = () => {
   const increment = (r, c) => () => {
     const nextGrid = copyGrid();
     nextGrid[r][c]++;
-    setCountGrid(nextGrid);
+    setGrid(nextGrid);
   };
 
   const decrement = (r, c) => () => {
     const nextGrid = copyGrid();
     nextGrid[r][c]--;
-    setCountGrid(nextGrid);
+    setGrid(nextGrid);
   };
 
   return (
@@ -22,9 +23,12 @@ export const Bingo = () => {
       {grid.map((rows, r) => (
         <div key={r} className="row">
           {rows.map((count, c) => (
-            <div className="col" key={`count-${r}-${c}`}>
-              {count}
-            </div>
+            <Counter
+              key={`count-${r}-${c}`}
+              count={count}
+              increment={increment(r, c)}
+              decrement={decrement(r, c)}
+            />
           ))}
         </div>
       ))}
