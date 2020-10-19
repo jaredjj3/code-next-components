@@ -4,20 +4,36 @@ import { Counter } from "./Counter";
 const WIN_THRESHOLD = 3;
 
 export const Bingo = () => {
-  const [grid, setGrid] = useState([[0, 0, 0], [0, 1, 0], [0, 0, 0]]);
+  const [grid, setGrid] = useState([
+    [
+      { description: 'green', count: 0 },
+      { description: 'round', count: 0 },
+      { description: 'red', count: 0 }
+    ],
+    [
+      { description: 'noisemaker', count: 0 },
+      { description: 'childhood item', count: 1 },
+      { description: 'souvenir', count: 0 }
+    ],
+    [
+      { description: 'collectible', count: 0 },
+      { description: 'broken', count: 0 },
+      { description: 'snack wrapper', count: 0 }
+    ],
+  ]);
   const [numWins, setNumWins] = useState(0);
 
-  const copyGrid = () => grid.map(row => row.map(el => el));
+  const copyGrid = () => grid.map(row => row.map(el => ({ ...el })));
 
   const increment = (r, c) => () => {
     const nextGrid = copyGrid();
-    nextGrid[r][c]++;
+    nextGrid[r][c].count++;
     setGrid(nextGrid);
   };
 
   const decrement = (r, c) => () => {
     const nextGrid = copyGrid();
-    nextGrid[r][c]--;
+    nextGrid[r][c].count--;
     setGrid(nextGrid);
   };
 
@@ -42,10 +58,11 @@ export const Bingo = () => {
     <div className="container">
       {grid.map((rows, r) => (
         <div key={`row-${r}`} className="row">
-          {rows.map((count, c) => (
+          {rows.map((el, c) => (
             <Counter
               key={`counter-${r}-${c}`}
-              count={count}
+              description={el.description}
+              count={el.count}
               threshold={WIN_THRESHOLD}
               increment={increment(r, c)}
               decrement={decrement(r, c)}

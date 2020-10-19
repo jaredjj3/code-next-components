@@ -5,7 +5,7 @@ export const Counter = props => {
   return (
     <div className="col card text-center">
       <div className="card-body">
-        <h5 className="card-title">{props.count}</h5>
+        <h5 className="card-title">{props.description}</h5>
         <p className="card-text">{props.count}{isAboveThreshold ? ' ✅' : ''}</p>
         <div className="btn-group" role="group">
           <button
