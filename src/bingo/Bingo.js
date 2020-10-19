@@ -5,7 +5,7 @@ const WIN_THRESHOLD = 3;
 
 const INITIAL_GRID = [
   [
-    { description: "green", count: 0 },
+    { description: "physical photo", count: 0 },
     { description: "round", count: 0 },
     { description: "red", count: 0 }
   ],
