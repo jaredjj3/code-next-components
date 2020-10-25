@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { TodoInput } from './TodoInput';
+import { TodoCount } from './TodoCount';
+import { TodoList } from './TodoList';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
