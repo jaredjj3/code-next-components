@@ -362,7 +362,7 @@ Good job!
 
 ## YOUR TURN: Cart Page
 
-[Live Example](https://github.com/arnab-datta/counter-app)
+[Live Example](https://obscure-waters-60500.herokuapp.com/)
 
 [Source code](https://github.com/arnab-datta/counter-app)
 
